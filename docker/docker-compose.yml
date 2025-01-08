@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  darkweb-fetcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6080:6080"
+    environment:
+      - VNC_USER=user
+      - VNC_PW=password
+    container_name: darkweb
+
