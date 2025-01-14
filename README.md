@@ -71,6 +71,10 @@ https://<SERVER_IP>:5901
 ```
 Note: The port 5901 can be changed to any other port if needed (e.g., -p 5902:6080, -p 5903:6080, etc.).
 
+**Note: Sometimes, you must reload the page to get all the content correctly.**
+
+4. When prompted for a username and password, use the same VNC_USER and VNC_PW you specified when running the container (e.g., user / password).
+
 4. When prompted for a username and password, use the same VNC_USER and VNC_PW you specified when running the container (e.g., user / password).
 
 ## Multiple Containers ##
