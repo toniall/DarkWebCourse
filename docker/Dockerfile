@@ -91,19 +91,14 @@ RUN bash $INST_SCRIPTS/firefox/install_firefox.sh && rm -rf $INST_SCRIPTS/firefo
 # Copy all the Docs to the container
 COPY ./src/ubuntu/install/files $HOME/Desktop/
 
-# Define a build argument for the password
-ARG USER_PASSWORD=password
-
 ### Create user and home directory for base images that don't already define it
-RUN apt-get update && apt-get install -y openssl \
-    && groupadd -g 1000 dark \
-    && useradd -m -u 1000 -g 1000 -s /bin/bash dark \
-    && echo "dark:$(echo $USER_PASSWORD | openssl passwd -6 -stdin)" | chpasswd \
-    && usermod -a -G dark dark
-
+RUN (groupadd -g 1000 dark \
+    && useradd -M -u 1000 -g 1000 dark \
+    && usermod -a -G dark dark) ; exit 0
 ENV HOME=/home/dark
 WORKDIR $HOME
 RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+
 
 RUN mkdir -p ${HOME}/.vnc
 COPY ./src/common/resources/certificate ${HOME}/.vnc/
