@@ -1,0 +1,16 @@
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install tor
+
+
+nano /etc/tor/torrc
+
+Nickname MyTorExitRelay
+ORPort 9001
+SocksPort 0
+ExitRelay 1
+ExitPolicy accept *:80, accept *:443, accept *:53, reject *:*
+
+sudo systemctl restart tor
+

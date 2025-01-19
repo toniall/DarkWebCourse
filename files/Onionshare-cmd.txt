@@ -1,0 +1,17 @@
+
+mkdir onionshare
+cd onionohare/
+
+python3 -m venv appenv
+source appenv/bin/activate
+
+sudo apt install tor
+sudo systemctl start tor
+sudo systemctl enable tor
+
+sudo snap install onionshare
+
+pip install --upgrade pip
+pip3 install onionshare-cli
+
+onionshare-cli --chat

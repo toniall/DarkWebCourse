@@ -1,0 +1,19 @@
+
+sudo apt update
+sudo apt install tor
+
+sudo nano /etc/tor/torrc
+HiddenServiceDir /var/lib/tor/hidden_service/
+HiddenServicePort 80 127.0.0.1:80
+
+
+sudo systemctl start tor
+
+sudo cat /var/lib/tor/hidden_service/hostname
+
+
+sudo apt install nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+sudo nano /var/www/html/index.nginx-debian.html
