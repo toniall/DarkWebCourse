@@ -88,10 +88,21 @@ COPY ./src/ubuntu/install/firefox/ $INST_SCRIPTS/firefox/
 COPY ./src/ubuntu/install/firefox/firefox.desktop $HOME/Desktop/
 RUN bash $INST_SCRIPTS/firefox/install_firefox.sh && rm -rf $INST_SCRIPTS/firefox/
 
+### Create user and home directory for base images that don't already define it
+RUN apt-get update && apt-get install -y sudo nano tmux python3-pip qt5-default build-essential\
+    && groupadd -g 1100 adminuser \
+    && useradd -m -u 1100 -g 1100 -G sudo -s /bin/bash adminuser \
+    && echo "adminuser:D@rkW3b" | chpasswd \
+    && echo "adminuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Copy all the Docs to the container
 COPY ./src/ubuntu/install/files $HOME/Desktop/
+COPY ./src/ubuntu/install/Ransomware_Chat $HOME/Desktop/Ransomchat/
+RUN pip3 install --upgrade pip setuptools wheel
+RUN pip3 install -r $HOME/Desktop/Ransomchat/requirements.txt
 
-### Create user and home directory for base images that don't already define it
+
+
 RUN (groupadd -g 1000 dark \
     && useradd -M -u 1000 -g 1000 dark \
     && usermod -a -G dark dark) ; exit 0
